@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="ISO-8859-1">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>        
+        <title>Página de inicio</title>
+    </head>
+
+    <body>
+        <h1>Ejemplo de Request Mapping</h1>
+        <h1 th:text="${valor}"></h1>
+        <a th:href="@{/requestMapping/enviarGet/{valor} (valor=4)}">Click para enviar 4</a><br/>
+        <a th:href="@{/requestMapping/enviarGet/SIUUUUU}">Click para enviar si</a><br/>
+        <a th:href="@{/requestMapping/requestParam(valor=Nouu)}">Click para enviar No en RequestParam</a><br/>
+
+        <form th:action="@{/requestMapping/enviarPost}" method="POST">
+            Valor 1: <input type="text" name="valor" placeholder="Ingresa un valor" />
+            Valor 2: <input type="text" name="valor2" placeholder="Ingresa otro valor" />
+            <button type="submit">Enviar valor</button>
+        </form>
+
+
+    </body>
+</html>
