@@ -1,11 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
     <head>
-        <meta charset="ISO-8859-1">
+        <meta charset="ISO-8859-1">        
         <title>Página de inicio</title>
     </head>
 
     <body>
-        Welcome page!
+        Mensaje desde el controlador: <h1 th:text="${mensaje}"></h1>
+        Otra forma de mostrar mensaje: [[${mensaje}]]
+
+        <br>Listas
+        <ol>
+            <li th:each="elemento : ${lista}" th:text="${elemento}"></li>
+        </ol>
     </body>
 </html>

@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-DemoApplication<demoartifact>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "comgroupid.demoartifact.DemoApplication",
+            "projectName": "demoartifact",
+            "args": ""
+        }
+    ]
+}
