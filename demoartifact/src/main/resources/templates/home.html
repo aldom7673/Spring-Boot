@@ -11,7 +11,7 @@
         Mensaje desde el controlador: <h1 th:text="${mensaje}"></h1>
         Otra forma de mostrar mensaje: [[${mensaje}]]
 
-        <br>Listas
+        <br>Lista
         <ol class="list-group">
             <li class="list-group-item" th:each="elemento : ${lista}" th:text="${elemento}"></li>
         </ol>
@@ -20,5 +20,15 @@
         <h3 th:text="'ID ' + ${modelo.id}"></h3>
         <h3 th:text="'Nombre ' + ${modelo.nombre}"></h3>
 
+        <br>Lista modelo
+        <ol class="list-group">
+            <li class="list-group-item" th:each="elemento : ${modelos}" th:text="'ID: ' + ${elemento.id} + ' Nombre: ' + ${elemento.nombre}"></li>
+        </ol>
+        
+        <br/>Buscar modelo
+        <form th:action="@{/buscarModelo}" method="POST">
+            ID: <input type="text" name="idModelo" placeholder="Ingresa un ID" />
+            <button type="submit">Enviar valor</button>
+        </form>
     </body>
 </html>
