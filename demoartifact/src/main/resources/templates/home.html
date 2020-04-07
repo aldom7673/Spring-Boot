@@ -13,5 +13,10 @@
         <ol>
             <li th:each="elemento : ${lista}" th:text="${elemento}"></li>
         </ol>
+
+        <br>Modelo
+        <h3 th:text="'ID ' + ${modelo.id}"></h3>
+        <h3 th:text="'Nombre ' + ${modelo.nombre}"></h3>
+
     </body>
 </html>
