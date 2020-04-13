@@ -2,6 +2,7 @@ package comgroupid.demoartifact.Controlador;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,7 +32,7 @@ public class HomeController {
         lista.add("Valor 6");
         model.addAttribute("lista", lista);
 
-        Modelo modelo = new Modelo(1, "Aldo");
+        Modelo modelo = new Modelo(1, "Aldo", new Date());
         model.addAttribute("modelo", modelo);
         return "home";
     }
