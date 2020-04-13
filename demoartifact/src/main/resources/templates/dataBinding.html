@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="ISO-8859-1">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />        
+        <title>Página de inicio</title>
+    </head>
+
+    <body>
+        <br>Modelo
+        <h3 th:text="'ID ' + ${modelo.id}"></h3>
+        <h3 th:text="'Nombre ' + ${modelo.nombre}"></h3>
+
+        <br>Lista modelo
+        <ol class="list-group">
+            <li class="list-group-item" th:each="elemento : ${modelos}" th:text="'ID: ' + ${elemento.id} + ' Nombre: ' + ${elemento.nombre}"></li>
+        </ol>
+
+        <br/> Enviar modelo con @RequestParam
+        <form th:action="@{/databinding/crear}" method="POST">
+            ID: <input type="text" name="id" placeholder="Ingresa un ID" /> <br/>
+            Nombre: <input type="text" name="nombre" placeholder="Ingresa un nombre" />
+            Fecha: <input type="text" name="fecha" placeholder="Selecciona una fecha" />
+            <button type="submit">Enviar valor</button>
+        </form>
+        
+        <br/> Enviar modelo con Data Binding
+        <form th:action="@{/databinding/crearConBinding}" method="POST" th:object="${modelo}">
+            <div th:if="${#fields.hasErrors('*')}" class='alert alert-danger' role='alert'>
+                Por favor corrija los siguientes errores:
+                <ul>
+                    <li th:each="err : ${#fields.errors('*')}" th:text="${err}" />
+                </ul>
+            </div>
+            ID: <input type="text" name="id" placeholder="Ingresa un ID" /> <br/>
+            Nombre: <input type="text" name="nombre" placeholder="Ingresa un nombre" />
+            Fecha: <input type="text" name="fecha" placeholder="Selecciona una fecha" />
+            <button type="submit">Enviar valor</button>
+        </form>
+
+        <script>
+            $(function() {
+              $('input[name="fecha1"]').daterangepicker({
+                singleDatePicker: true,
+                showDropdowns: true,
+                minYear: 1901
+              }, function(start, end, label) {
+              });
+            });
+        </script>
+    </body>
+</html>
