@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,15 +17,19 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import comgroupid.demoartifact.Modelo.Modelo;
 import comgroupid.demoartifact.Service.IDependenciaService;
+import comgroupid.demoartifact.Util.Upload;
 
 @Controller
 @RequestMapping(value="/databinding")
 public class DataBinding {
     @Autowired
     private IDependenciaService serviceDependencia;
+    @Value("${variables.aplicacion.ruta}")
+    private String ruta;
     
     @GetMapping("")
     public String index(Model model, Modelo modelo){
@@ -46,7 +51,7 @@ public class DataBinding {
     }
 
     @PostMapping("/crearConBinding")
-    public String crearModeloBinding(Modelo modelo, BindingResult result, Model model){
+    public String crearModeloBinding(Modelo modelo, BindingResult result, Model model, @RequestParam("archivoImagen") MultipartFile multiPart){
         if(result.hasErrors()){
             for(ObjectError error : result.getAllErrors()){
                 System.out.println("Ocurrio el error:" + error.getDefaultMessage());
@@ -62,6 +67,14 @@ public class DataBinding {
         serviceDependencia.GuardarModelo(modelo);
         List<Modelo> lista = serviceDependencia.obtenerModelos();
         model.addAttribute("modelos", lista);        
+
+        if(!multiPart.isEmpty()){
+            String nombreImagen = Upload.subirArchivo(multiPart, ruta);
+            if( nombreImagen != null ){
+                System.out.println("Imagen guardada : " + nombreImagen);
+            }
+        }
+
         return "redirect:/databinding";
     }
 

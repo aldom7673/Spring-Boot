@@ -30,16 +30,18 @@
         </form>
         
         <br/> Enviar modelo con Data Binding
-        <form th:action="@{/databinding/crearConBinding}" method="POST" th:object="${modelo}">
+        <form th:action="@{/databinding/crearConBinding}" method="POST" th:object="${modelo}" enctype="multipart/form-data">
             <div th:if="${#fields.hasErrors('*')}" class='alert alert-danger' role='alert'>
                 Por favor corrija los siguientes errores:
                 <ul>
                     <li th:each="err : ${#fields.errors('*')}" th:text="${err}" />
                 </ul>
             </div>
-            ID: <input type="text" name="id" placeholder="Ingresa un ID" /> <br/>
-            Nombre: <input type="text" name="nombre" placeholder="Ingresa un nombre" />
-            Fecha: <input type="text" name="fecha" placeholder="Selecciona una fecha" />
+                                
+            ID: <input type="text" th:field="*{id}" name="id" placeholder="Ingresa un ID" /> <br/>
+            Nombre: <input type="text" th:field="*{nombre}" name="nombre" placeholder="Ingresa un nombre" />
+            Fecha: <input type="text" th:field="*{fecha}" name="fecha" placeholder="Selecciona una fecha" />
+            <input type="file" name="archivoImagen" id="archivoImagen"/>
             <button type="submit">Enviar valor</button>
         </form>
 
