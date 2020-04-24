@@ -1,12 +1,16 @@
 package comgroupid.demoartifact.Modelo;
 
 import java.sql.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -30,6 +34,11 @@ public class Usuario {
     @JoinColumn(name="fkGenero")
     private Genero genero;
     private boolean estado;
+    @ManyToMany(fetch=FetchType.EAGER)
+    @JoinTable(name="RolUsuario",
+                joinColumns = @JoinColumn(name="idUsuario"),
+                inverseJoinColumns = @JoinColumn(name="idRol"))
+    private List<Rol> roles;
 
     public Usuario(){
         this.estado = false;
@@ -141,8 +150,16 @@ public class Usuario {
     @Override
     public String toString() {
         return "Usuario [contrasena=" + contrasena + ", correo=" + correo + ", estado=" + estado + ", fechaRegistro="
-                + fechaRegistro + ", Genero=" + genero + ", TipoUsuario=" + tipoUsuario + ", idUsuario="
-                + idUsuario + ", nombre=" + nombre + ", primerApellido=" + primerApellido + ", segundoApellido="
-                + segundoApellido + "]";
+                + fechaRegistro + ", genero=" + genero + ", idUsuario=" + idUsuario + ", nombre=" + nombre
+                + ", primerApellido=" + primerApellido + ", roles=" + roles + ", segundoApellido=" + segundoApellido
+                + ", tipoUsuario=" + tipoUsuario + "]";
+    }
+
+    public List<Rol> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Rol> roles) {
+        this.roles = roles;
     }
 }
